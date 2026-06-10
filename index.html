@@ -1,1 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rishika ❤️ Gullumullu | God Mode</title>
 
+<style>
+body{
+margin:0;
+overflow:hidden;
+font-family:Arial;
+background:black;
+color:white;
+}
+
+/* INTRO */
+#intro{
+position:fixed;
+width:100%;
+height:100%;
+background:url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:10;
+}
+
+#intro::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.75);
+}
+
+.tap{
+z-index:2;
+padding:15px 25px;
+border:2px solid white;
+border-radius:30px;
+cursor:pointer;
+font-size:20px;
+transition:0.3s;
+}
+
+.tap:hover{
+transform:scale(1.1);
+background:white;
+color:black;
+}
+
+/* MAIN */
+#main{
+display:none;
+width:100%;
+height:100vh;
+position:relative;
+text-align:center;
+}
+
+#bg{
+position:absolute;
+width:100%;
+height:100%;
+background-size:cover;
+background-position:center;
+filter:blur(3px) brightness(0.4);
+transition:1s;
+}
+
+.overlay{
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+}
+
+/* SLIDES */
+.slide{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0);
+opacity:0;
+transition:1s;
+}
+
+.slide.active{
+transform:translate(-50%,-50%) scale(1);
+opacity:1;
+}
+
+.slide img{
+width:260px;
+height:260px;
+object-fit:cover;
+border-radius:20px;
+border:3px solid #ff4d6d;
+box-shadow:0 0 25px #ff4d6d;
+}
+
+/* QUIZ */
+#quiz{
+display:none;
+position:absolute;
+width:100%;
+height:100%;
+z-index:5;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}
+
+button{
+padding:10px 20px;
+margin:5px;
+border:none;
+border-radius:20px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+}
+
+/* LETTER */
+#letter{
+display:none;
+position:absolute;
+width:100%;
+height:100%;
+z-index:20;
+text-align:center;
+padding:30px;
+background:black;
+}
+
+/* PROPOSAL */
+#proposal{
+display:none;
+position:absolute;
+width:100%;
+height:100%;
+z-index:30;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+background:rgba(0,0,0,0.95);
+text-align:center;
+}
+
+h1{
+color:#ff4d6d;
+text-shadow:0 0 20px #ff4d6d;
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+<div class="tap" onclick="start()">💖 Tap to Enter God Mode Memory Film 💖</div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+<div id="bg"></div>
+<div class="overlay"></div>
+
+<!-- SLIDES -->
+<div id="slides">
+
+<div class="slide active"><img src="1.jpg"></div>
+<div class="slide"><img src="2.jpg"></div>
+<div class="slide"><img src="3.jpg"></div>
+<div class="slide"><img src="4.jpg"></div>
+<div class="slide"><img src="5.jpg"></div>
+<div class="slide"><img src="6.jpg"></div>
+<div class="slide"><img src="7.jpg"></div>
+<div class="slide"><img src="8.jpg"></div>
+<div class="slide"><img src="9.jpg"></div>
+<div class="slide"><img src="10.jpg"></div>
+<div class="slide"><img src="11.jpg"></div>
+
+</div>
+
+<!-- QUIZ -->
+<div id="quiz">
+<h2>💞 Mini Memory Quiz</h2>
+<button onclick="q()">We laugh more than study 😄</button>
+<button onclick="q()">Food chaos 🍕</button>
+<button onclick="q()">Road No.3 memories 🌙</button>
+<button onclick="q()">Quantum disaster 🤣</button>
+</div>
+
+<!-- LETTER -->
+<div id="letter">
+<h1>💌 Secret Letter</h1>
+<p id="text"></p>
+</div>
+
+<!-- PROPOSAL -->
+<div id="proposal">
+<h1>Rishika ❤️</h1>
+<h2>Will you always be my Gullumullu? 💍</h2>
+
+<button onclick="yes()">YES 💖</button>
+<button onclick="no()">NO 💔</button>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+let music = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+music.loop = true;
+
+let slides;
+let index = 0;
+let score = 0;
+
+function start(){
+
+document.getElementById("intro").style.display="none";
+document.getElementById("main").style.display="block";
+
+music.play();
+
+confetti({particleCount:200, spread:120});
+
+slides = document.querySelectorAll(".slide");
+
+show();
+setInterval(next, 3500);
+}
+
+function show(){
+
+slides.forEach(s=>s.classList.remove("active"));
+slides[index].classList.add("active");
+
+document.getElementById("bg").style.backgroundImage =
+"url("+slides[index].querySelector("img").src+")";
+
+}
+
+function next(){
+
+index++;
+
+if(index >= slides.length){
+document.getElementById("slides").style.display="none";
+document.getElementById("quiz").style.display="flex";
+return;
+}
+
+show();
+}
+
+function q(){
+score++;
+
+confetti({particleCount:80, spread:100});
+
+if(navigator.vibrate) navigator.vibrate(80);
+
+if(score >= 4){
+document.getElementById("quiz").style.display="none";
+showLetter();
+}
+}
+
+function showLetter(){
+
+document.getElementById("letter").style.display="block";
+
+let text = `Rishika ❤️
+
+From Gullumullu 💞
+
+Every memory with you is my favorite universe.
+
+Road No.3, food fights, walks, chaos…
+you became my home ✨`;
+
+let i=0;
+
+function type(){
+if(i<text.length){
+document.getElementById("text").innerHTML += text[i];
+i++;
+setTimeout(type,40);
+}
+else{
+setTimeout(()=>{
+
+document.getElementById("letter").style.display="none";
+document.getElementById("proposal").style.display="flex";
+
+confetti({particleCount:300, spread:160});
+
+},2000);
+}
+}
+
+type();
+}
+
+function yes(){
+confetti({particleCount:500, spread:200});
+alert("She said YES 💖 Gullumullu forever!");
+}
+
+function no(){
+alert("This timeline is broken 😭 Try again 💔");
+}
+
+</script>
+
+</body>
+</html>
